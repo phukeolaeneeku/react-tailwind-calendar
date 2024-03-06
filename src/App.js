@@ -1,7 +1,8 @@
 import dayjs from "dayjs";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { generateDate, months } from "./util/calendar";
 import cn from "./util/cn";
+import "./App.css";
 import { GrFormNext, GrFormPrevious } from "react-icons/gr";
 
 export default function Calendar() {
@@ -9,10 +10,18 @@ export default function Calendar() {
 	const currentDate = dayjs();
 	const [today, setToday] = useState(currentDate);
 	const [selectDate, setSelectDate] = useState(currentDate);
+
+	useEffect(() => {
+        // When selectDate state changes, log the day, month, and year
+        console.log("Day:", selectDate.date());
+        console.log("Month:", selectDate.month() + 1);
+        console.log("Year:", selectDate.year());
+    }, [selectDate]);
+
 	return (
-		<div className="flex gap-10 sm:divide-x justify-center sm:w-1/2 mx-auto  h-screen items-center sm:flex-row flex-col">
-			<div className="w-96 h-96 ">
-				<div className="flex justify-between items-center">
+		<div className="flex gap-1 sm:divide-x justify-center sm:w-1/2 mx-auto  h-screen items-center sm:flex-row flex-col">
+			<div className="w-90 h-90 ">
+				<div className="flex justify-between items-center"> 
 					<h1 className="select-none font-semibold">
 						{months[today.month()]}, {today.year()}
 					</h1>
@@ -92,6 +101,7 @@ export default function Calendar() {
 				</h1>
 				<p className="text-gray-400">No meetings for today.</p>
 			</div>
+			
 		</div>
 	);
 }
